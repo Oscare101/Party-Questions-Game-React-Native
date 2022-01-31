@@ -73,7 +73,6 @@ export default function GameScreen(props) {
               disabled={nextCardDisable}
               onPress={() => {
                 if (numberOfQuestion < questions.length - 2) {
-                  console.log(numberOfQuestion, questions.length)
                   setNumberOfQuestion(numberOfQuestion + 1)
                   setPastCards((PastCards) => [
                     ...PastCards,
