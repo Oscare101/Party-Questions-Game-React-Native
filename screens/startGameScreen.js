@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Dimensions,
-  Modal,
   TouchableOpacity,
 } from 'react-native'
 
@@ -12,18 +11,23 @@ import {} from '@expo/vector-icons'
 
 import Header from '../components/header'
 import Card from '../components/card'
-import VulgarityInput from '../components/vulgarityInput'
 import CommentText from '../components/commentText'
+
+import VulgarityInput from '../components/vulgarityInput'
 import VulgarityModal from '../components/vulgarityModal'
+import RulesModal from '../components/rulesModal'
+import AmountOfPeopleInput from '../components/amountOfPeopleInput'
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
 
-export default function StartGameScreen() {
+export default function StartGameScreen(props) {
   const [vulgarityModalVisible, setVulgarityModalVisible] = useState(false)
-  const [vulgarity, setVulgarity] = useState(0)
+  const [vulgarity, setVulgarity] = useState(1)
+  const [rulesVisible, setRulesVisible] = useState(false)
+  const [amountOfPeople, setAmountOfPeople] = useState(1)
 
-  const [color1, setColor1] = useState('grey')
+  const [color1, setColor1] = useState('#00bf9a')
   const [color2, setColor2] = useState('grey')
   const [color3, setColor3] = useState('grey')
 
@@ -31,11 +35,6 @@ export default function StartGameScreen() {
     setVulgarity(point)
     setVulgarityModalVisible(false)
     switch (point) {
-      case 0:
-        setColor1('grey')
-        setColor2('grey')
-        setColor3('grey')
-        break
       case 1:
         setColor1('#00bf9a')
         setColor2('grey')
@@ -55,27 +54,41 @@ export default function StartGameScreen() {
 
   return (
     <View style={styles.container}>
+      <Header
+        headerButton={1}
+        title="Игра вопросы для вечеринок"
+        onQuestion={() => setRulesVisible(true)}
+      />
+
       <VulgarityModal
         visible={vulgarityModalVisible}
         onClick={(point) => VulgarityHandler(point)}
       />
-      <Header title="Party Questions Game" />
+
+      <RulesModal
+        rulesVisible={rulesVisible}
+        onQuestionClose={() => setRulesVisible(false)}
+      />
+
       <View style={styles.inputBlock}>
         <View>
-          <Card>
-            <VulgarityInput
-              color1={color1}
-              color2={color2}
-              color3={color3}
-              vulgarityLevel={vulgarity}
-              onPress={() => setVulgarityModalVisible(true)}
-            />
-          </Card>
+          <VulgarityInput
+            color1={color1}
+            color2={color2}
+            color3={color3}
+            vulgarityLevel={vulgarity}
+            onPress={() => setVulgarityModalVisible(true)}
+          />
+          <AmountOfPeopleInput
+            onAmoutOfPeople={(point) => setAmountOfPeople(point)}
+          />
         </View>
 
         <View>
           <Card>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.onStartGame(vulgarity, amountOfPeople)}
+            >
               <View style={styles.buttonStart}>
                 <Text style={styles.textStart}>Начать Игру</Text>
               </View>

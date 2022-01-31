@@ -3,11 +3,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import CommentText from './commentText'
+import Card from './card'
 
 export default function VulgarityInput(props) {
   return (
-    <TouchableOpacity onPress={props.onPress}>
-      <View style={styles.block}>
+    <Card>
+      <TouchableOpacity onPress={props.onPress}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <MaterialCommunityIcons
@@ -48,9 +49,9 @@ export default function VulgarityInput(props) {
           </View>
         </View>
 
-        <CommentText title="насколько откровенные вопросы могут быть" />
-      </View>
-    </TouchableOpacity>
+        <CommentText title="Насколько откровенные вопросы могут быть" />
+      </TouchableOpacity>
+    </Card>
   )
 }
 

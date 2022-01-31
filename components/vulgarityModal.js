@@ -4,11 +4,13 @@ import { StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import CommentText from './commentText'
 import Card from './card'
+import Header from './header'
 
 export default function VulgarityModal(props) {
   return (
     <Modal visible={props.visible} animationType="fade">
       <View style={styles.container}>
+        <Header title="Выберите уровень вопросов" />
         <TouchableOpacity onPress={() => props.onClick(1)}>
           <Card>
             <View>
@@ -32,10 +34,7 @@ export default function VulgarityModal(props) {
           <Card>
             <View>
               <Text style={[styles.big, { color: '#f05333' }]}>Сложно</Text>
-              <CommentText
-                title="Максимальная сложность, азартность и откровенность вопросов и
-                  заданий{'\n'}Лучше играть пьяными"
-              />
+              <CommentText title="Максимальная сложность, азартность и откровенность вопросов и заданий. Лучше играть пьяными" />
             </View>
           </Card>
         </TouchableOpacity>
